@@ -5,9 +5,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var core_1 = require("@angular/core");
+var calculator_1 = require("./calculator");
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(calculator) {
+        this.calculator = calculator;
         this.logs = [
             { message: '1+1= 1' },
             { message: '1+1= 2' },
@@ -21,24 +26,15 @@ var AppComponent = (function () {
             { message: '1+1= 10' }
         ];
         this.evalString = '';
-        // users: User[] = [
-        //   { id: 25, name: 'Chris', username: 'sevilayha' },
-        //   { id: 26, name: 'Nick', username: 'whatnicktweets' },
-        //   { id: 27, name: 'Holly', username: 'hollylawly' }
-        // ];
-        // activeUser: User;
-        //
-        // selectUser(user) {
-        //   this.activeUser = user;
-        //   console.log(this.activeUser);
-        // }
-        //
-        // onUserCreated(event) {
-        //   this.users.push(event.user);
-        // }
     }
-    AppComponent.prototype.calculate = function (exp) {
-        console.log(exp);
+    AppComponent.prototype.calculate = function () {
+        this.evalString += this.calculator.solution;
+        console.log(this.evalString);
+    };
+    AppComponent.prototype.addToString = function (char) {
+        this.evalString += char;
+        if (char === '=')
+            this.calculate();
     };
     return AppComponent;
 }());
@@ -47,7 +43,8 @@ AppComponent = __decorate([
         selector: 'my-app',
         templateUrl: './app/app.component.html',
         styleUrls: ['./app/app.component.css']
-    })
+    }),
+    __metadata("design:paramtypes", [calculator_1.Calculator])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

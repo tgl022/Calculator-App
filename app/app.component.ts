@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Log } from './shared/models/log';
+import { Calculator } from './calculator';
 
 @Component({
   selector: 'my-app',
@@ -7,6 +8,8 @@ import { Log } from './shared/models/log';
   styleUrls: ['./app/app.component.css']
 })
 export class AppComponent {
+
+  constructor(private calculator: Calculator) { }
 
   logs: Log[] = [
     { message: '1+1= 1' },
@@ -23,8 +26,15 @@ export class AppComponent {
 
   evalString = '';
 
-  calculate(exp) {
-    console.log(exp);
+  calculate() {
+    this.evalString += this.calculator.solution;
+    console.log(this.evalString);
+  }
+
+  addToString(char) {
+    this.evalString += char;
+    if(char === '=')
+      this.calculate();
   }
 
 
