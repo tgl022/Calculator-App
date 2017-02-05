@@ -10,33 +10,59 @@
   <div class="row">
     <div class="col-sm-4">
 
-      <div *ngIf="users">
-      <ul class="list-group users-list">
+      <div *ngIf="logs">
+      <ul class="list-group log-list">
         <li class="list-group-item"
-          *ngFor="let user of users"
-          (click)="selectUser(user)"
-          [class.active]="user === activeUser">
-          {{ user.name }} ({{ user.username }})
+          *ngFor="let log of logs">
+          {{ log.message }}
         </li>
       </ul>
       </div>
 
-      <user-form (userCreated)="onUserCreated($event)"></user-form>
-
     </div>
     <div class="col-sm-8">
 
-      <user-profile [user]="activeUser"></user-profile>
 
-      <div class="jumbotron" *ngIf="!activeUser">
-        <span class="glyphicon glyphicon-hand-left"></span>
-        <h2>Choose a User</h2>
+      <div class="jumbotron">
+        <textarea id="calc-field" placeholder="1+1=" (ngSubmit)="calculate('1+1+1')"></textarea>
+        <div class= "row">
+          <div class="col-sm-4 nopadding">
+            <button class="btn btn-info" type="button"> 1 </button>
+          </div>
+          <div class="col-sm-4 nopadding">
+            <button class="btn btn-info" type="button"> 2 </button>
+          </div>
+          <div class="col-sm-4 nopadding">
+            <button class="btn btn-info" type="button"> 3 </button>
+          </div>
+          <div class="col-sm-4 nopadding">
+            <button class="btn btn-info" type="button"> 4 </button>
+          </div>
+          <div class="col-sm-4 nopadding">
+            <button class="btn btn-info" type="button"> 5 </button>
+          </div>
+          <div class="col-sm-4 nopadding">
+            <button class="btn btn-info" type="button"> 6 </button>
+          </div>
+          <div class="col-sm-4 nopadding">
+            <button class="btn btn-info" type="button"> 7 </button>
+          </div>
+          <div class="col-sm-4 nopadding">
+            <button class="btn btn-info" type="button"> 8 </button>
+          </div>
+          <div class="col-sm-4 nopadding">
+            <button class="btn btn-info" type="button"> 9 </button>
+          </div>
+          <div class="col-sm-4 nopadding">
+          </div>
+          <div class="col-sm-4 nopadding">
+            <button class="btn btn-info" type="button"> 0 </button>
+          </div>
+          <div class="col-sm-4 nopadding">
+          </div>
+        </div>
       </div>
 
     </div>
-  </div>      
+  </div>
 </main>
-
-<footer class="text-center">
-  Copyright &copy; 2016
-</footer>

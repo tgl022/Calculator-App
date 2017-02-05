@@ -8,23 +8,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var user_1 = require('../shared/models/user');
+var core_1 = require("@angular/core");
+var user_1 = require("../shared/models/user");
 var UserProfileComponent = (function () {
     function UserProfileComponent() {
     }
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', user_1.User)
-    ], UserProfileComponent.prototype, "user", void 0);
-    UserProfileComponent = __decorate([
-        core_1.Component({
-            selector: 'user-profile',
-            template: "\n    <div class=\"jumbotron\" *ngIf=\"user\">\n      <h2>{{ user.name }} <small>{{ user.username }}</small></h2>\n\n      <input class=\"form-control\" [(ngModel)]=\"user.name\">\n    </div>\n  "
-        }), 
-        __metadata('design:paramtypes', [])
-    ], UserProfileComponent);
     return UserProfileComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", typeof (_a = typeof user_1.User !== "undefined" && user_1.User) === "function" && _a || Object)
+], UserProfileComponent.prototype, "user", void 0);
+UserProfileComponent = __decorate([
+    core_1.Component({
+        selector: 'user-profile',
+        template: "\n    <div class=\"jumbotron\" *ngIf=\"user\">\n      <h2>{{ user.name }} <small>{{ user.username }}</small></h2>\n\n      <input class=\"form-control\" [(ngModel)]=\"user.name\">\n    </div>\n  "
+    })
+], UserProfileComponent);
 exports.UserProfileComponent = UserProfileComponent;
+var _a;
 //# sourceMappingURL=user-profile.component.js.map

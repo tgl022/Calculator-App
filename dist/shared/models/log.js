@@ -5,4 +5,4 @@ var Log = (function () {
     return Log;
 }());
 exports.Log = Log;
-//# sourceMappingURL=user.js.map
+//# sourceMappingURL=log.js.map

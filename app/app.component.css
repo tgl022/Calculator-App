@@ -1,6 +1,19 @@
-.users-list li   {
+.log-list li   {
   cursor: pointer;
 }
-.jumbotron .glyphicon {
-  font-size: 80px;
+.jumbotron {
+  text-align: center;
+}
+
+
+
+.row {
+    margin-left: 130px;
+    margin-right: 130px;
+    margin-top: 0px:
+}
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
 }
