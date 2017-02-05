@@ -9,39 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var calculator_1 = require("./calculator");
+var log_service_1 = require("./services/log.service");
 var AppComponent = (function () {
-    function AppComponent() {
-        this.logs = [
-            { message: '1+1= 1' },
-            { message: '1+1= 2' },
-            { message: '1+1= 3' },
-            { message: '1+1= 4' },
-            { message: '1+1= 5' },
-            { message: '1+1= 6' },
-            { message: '1+1= 7' },
-            { message: '1+1= 8' },
-            { message: '1+1= 9' },
-            { message: '1+1= 10' }
-        ];
+    function AppComponent(calculator, logService) {
+        this.calculator = calculator;
+        this.logService = logService;
         this.evalString = '';
-        // users: User[] = [
-        //   { id: 25, name: 'Chris', username: 'sevilayha' },
-        //   { id: 26, name: 'Nick', username: 'whatnicktweets' },
-        //   { id: 27, name: 'Holly', username: 'hollylawly' }
-        // ];
-        // activeUser: User;
-        //
-        // selectUser(user) {
-        //   this.activeUser = user;
-        //   console.log(this.activeUser);
-        // }
-        //
-        // onUserCreated(event) {
-        //   this.users.push(event.user);
-        // }
     }
-    AppComponent.prototype.calculate = function (exp) {
-        console.log(exp);
+    AppComponent.prototype.calculate = function () {
+        this.evalString += this.calculator.solution;
+        console.log(this.evalString);
+    };
+    AppComponent.prototype.addToString = function (char) {
+        this.evalString += char;
+        if (char === '=')
+            this.calculate();
+    };
+    AppComponent.prototype.pushLog = function () {
+        //push a new log
+    };
+    AppComponent.prototype.getLog = function () {
+        //get last 10 logs
+        // this.logService.getLogs().subscribe(data => {
+        //   this.word = data.word;
+    };
+    AppComponent.prototype.ngOnInit = function () {
+        this.getLog();
     };
     return AppComponent;
 }());
@@ -51,7 +45,8 @@ AppComponent = __decorate([
         templateUrl: './app/app.component.html',
         styleUrls: ['./app/app.component.css']
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [calculator_1.Calculator,
+        log_service_1.LogService])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
