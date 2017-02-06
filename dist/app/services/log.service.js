@@ -23,12 +23,12 @@ var LogService = (function () {
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
     };
     LogService.prototype.addLog = function (body) {
-        var bodyString = JSON.stringify(body); // Stringify payload
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
-        return this.http.post(this.logsUrl, body, options) // ...using post request
-            .map(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
-            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); }); //...errors if
+        var bodyString = JSON.stringify(body);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.post(this.logsUrl, body, options)
+            .map(function (res) { return res.json(); })
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
     };
     return LogService;
 }());

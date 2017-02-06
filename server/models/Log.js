@@ -7,12 +7,10 @@ const logSchema = new Schema({
   message: {
     type: String,
     required: true
-  }
-  //add more elements
+  }  //add more elements
 });
 
-//encription logic
-//
+//pre
 
 const Log = mongoose.model('Log', logSchema);
 export default Log;

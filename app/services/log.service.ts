@@ -15,19 +15,17 @@ export class LogService {
   getLogs() :  Observable<Log[]> {
      return this.http.get(this.logsUrl)
          .map((res:Response) => res.json())
-         //...errors if any
          .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   addLog(body: Object) :  Observable<Log[]>{
-    let bodyString = JSON.stringify(body); // Stringify payload
-    let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-    let options       = new RequestOptions({ headers: headers }); // Create a request option
+    let bodyString = JSON.stringify(body);
+    let headers      = new Headers({ 'Content-Type': 'application/json' });
+    let options       = new RequestOptions({ headers: headers });
 
-
-    return this.http.post(this.logsUrl, body, options) // ...using post request
-          .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
-          .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if
+    return this.http.post(this.logsUrl, body, options)
+          .map((res:Response) => res.json())
+          .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
 }

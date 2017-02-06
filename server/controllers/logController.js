@@ -3,15 +3,20 @@ import db from './../models';
 const logController = {};
 
 logController.get = (req, res) => {
-  res.json({
-    message: 'Welcome to the API!!!'
+  db.Log.find({}).sort({_id: -1}).limit(10).then((logs) => {
+    res.status(200).json({
+      success: true,
+      data: logs
+    });
+  }).catch((err) => {
+    res.status(500).json({
+      message: err
+    });
   });
-};
+}
 
 logController.post = (req, res) => {
   const {message} = req.body;
-
-  //Validation
 
   const log = new db.Log({
     message
@@ -20,7 +25,7 @@ logController.post = (req, res) => {
   log.save().then((newLog) => {
     res.status(200).json({
       success: true,
-      date: newLog
+      data: newLog
     });
   }).catch((err) => {
     res.status(500).json({
