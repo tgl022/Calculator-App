@@ -9,11 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var calculator_1 = require("./calculator");
+var calculator_service_1 = require("./services/calculator.service");
 var log_service_1 = require("./services/log.service");
 var AppComponent = (function () {
-    function AppComponent(calculator, logService) {
-        this.calculator = calculator;
+    function AppComponent(calculatorService, logService) {
+        this.calculatorService = calculatorService;
         this.logService = logService;
         this.evalString = '';
     }
@@ -22,25 +22,38 @@ var AppComponent = (function () {
         this.logService.getLogs().subscribe(function (data) {
             _this.logs = data;
         });
+        console.log('Logs loaded');
     };
-    AppComponent.prototype.calculate = function () {
-        this.evalString += this.calculator.solution;
-        console.log(this.evalString);
-    };
-    AppComponent.prototype.addToString = function (char) {
-        this.evalString += char;
-        if (char === '=')
-            this.calculate();
-    };
-    AppComponent.prototype.pushLog = function () {
-        //push a new log
-    };
-    AppComponent.prototype.getLog = function () {
+    AppComponent.prototype.updateLogs = function () {
         var _this = this;
         //get last 10 logs
         this.logService.getLogs().subscribe(function (data) {
             _this.logs = data;
         });
+    };
+    AppComponent.prototype.clearScreen = function () {
+        this.evalString = '';
+    };
+    AppComponent.prototype.addToString = function (char) {
+        if (char == '=') {
+            var solution = this.calculatorService.eval(this.evalString);
+            this.pushLog(this.evalString + '= ' + solution);
+            this.evalString = solution;
+        }
+        else {
+            this.evalString += char;
+        }
+    };
+    AppComponent.prototype.pushLog = function (logMessage) {
+        //push a new log
+        var log = {
+            message: logMessage
+        };
+        this.logService.addLog(log)
+            .subscribe(function (log) {
+            console.log("Pushed new log: " + logMessage);
+        });
+        this.updateLogs();
     };
     return AppComponent;
 }());
@@ -50,7 +63,7 @@ AppComponent = __decorate([
         templateUrl: './app/app.component.html',
         styleUrls: ['./app/app.component.css']
     }),
-    __metadata("design:paramtypes", [calculator_1.Calculator,
+    __metadata("design:paramtypes", [calculator_service_1.CalculatorService,
         log_service_1.LogService])
 ], AppComponent);
 exports.AppComponent = AppComponent;

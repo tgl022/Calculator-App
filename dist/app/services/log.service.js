@@ -15,18 +15,18 @@ require("rxjs/add/operator/map");
 var LogService = (function () {
     function LogService(http) {
         this.http = http;
-        this.logsUrl = '/logs';
+        this.logsUrl = '/log';
     }
     LogService.prototype.getLogs = function () {
+        console.log('Get log called in service');
         return this.http.get(this.logsUrl)
             .map(function (res) { return res.json().data; })
             .catch(this.handleError);
     };
     LogService.prototype.addLog = function (body) {
-        var bodyString = JSON.stringify(body);
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        var options = new http_1.RequestOptions({ headers: headers });
-        return this.http.post(this.logsUrl, body, options)
+        // let bodyString = JSON.stringify(body);
+        // let headers      = new Headers({ 'Content-Type': 'application/json' });
+        return this.http.post(this.logsUrl, body)
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };

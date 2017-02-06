@@ -22,9 +22,10 @@
     </div>
     <div class="col-sm-8">
 
-
       <div class="jumbotron">
-        <textarea id="calc-field" placeholder="1+1=" (ngSubmit)="calculate('1+1+1')">{{ evalString }}</textarea>
+       <div class="form-group">
+        <textarea class="form-control" rows="1" placeholder="1+1=" id="calc">{{ evalString }}</textarea>
+      </div>
         <div class= "row">
           <div class="col-sm-3 nopadding">
             <button class="btn btn-info" type="button" (click)= "addToString('1')"> 1 </button>
@@ -36,7 +37,7 @@
             <button class="btn btn-info" type="button" (click)= "addToString('3')"> 3 </button>
           </div>
           <div class="col-sm-3 nopadding">
-            <button class="btn btn-success" type="button" (click)= "addToString('+')"> + </button>
+            <button class="btn btn-warning" type="button" (click)= "addToString('+')"> + </button>
           </div>
           <div class="col-sm-3 nopadding">
             <button class="btn btn-info" type="button" (click)= "addToString('4')"> 4 </button>
@@ -48,7 +49,7 @@
             <button class="btn btn-info" type="button" (click)= "addToString('6')"> 6 </button>
           </div>
           <div class="col-sm-3 nopadding">
-            <button class="btn btn-success" type="button" (click)= "addToString('-')"> - </button>
+            <button class="btn btn-warning" type="button" (click)= "addToString('-')"> - </button>
           </div>
           <div class="col-sm-3 nopadding">
             <button class="btn btn-info" type="button" (click)= "addToString('7')"> 7 </button>
@@ -60,9 +61,10 @@
             <button class="btn btn-info" type="button" (click)= "addToString('9')"> 9 </button>
           </div>
           <div class="col-sm-3 nopadding">
-            <button class="btn btn-success" type="button" (click)= "addToString('*')"> * </button>
+            <button class="btn btn-warning" type="button" (click)= "addToString('*')"> × </button>
           </div>
           <div class="col-sm-3 nopadding">
+            <button class="btn btn-danger" type="button" (click)= "clearScreen()"> C </button>
           </div>
           <div class="col-sm-3 nopadding">
             <button class="btn btn-info" type="button" (click)= "addToString('0')"> 0 </button>
@@ -71,7 +73,7 @@
             <button class="btn btn-success" type="button" (click)= "addToString('=')"> = </button>
           </div>
           <div class="col-sm-3 nopadding">
-            <button class="btn btn-success" type="button"> / </button>
+            <button class="btn btn-warning" type="button" (click)= "addToString('/')"> ÷ </button>
           </div>
         </div>
       </div>

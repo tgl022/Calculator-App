@@ -7,24 +7,24 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class LogService {
 
-  private logsUrl = '/logs';
+  private logsUrl = '/log';
 
   constructor(private http: Http) { }
 
   getLogs() :  Observable<Log[]> {
+     console.log('Get log called in service');
      return this.http.get(this.logsUrl)
          .map(res => res.json().data)
          .catch(this.handleError);
   }
 
-  addLog(body: Object) :  Observable<Log[]>{
-    let bodyString = JSON.stringify(body);
-    let headers      = new Headers({ 'Content-Type': 'application/json' });
-    let options       = new RequestOptions({ headers: headers });
+  addLog(body: Object) :  Observable<Log>{
+    // let bodyString = JSON.stringify(body);
+    // let headers      = new Headers({ 'Content-Type': 'application/json' });
 
-    return this.http.post(this.logsUrl, body, options)
-          .map((res:Response) => res.json())
-          .catch(this.handleError);
+    return this.http.post(this.logsUrl, body)
+        .map(res => res.json())
+        .catch(this.handleError);
   }
 
 
