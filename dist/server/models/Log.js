@@ -6,9 +6,8 @@ var logSchema = new Schema({
     message: {
         type: String,
         required: true
-    } //add more elements
+    }
 });
-//pre
 var Log = mongoose_1.default.model('Log', logSchema);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Log;

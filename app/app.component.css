@@ -12,6 +12,24 @@
 }
 
 .nopadding {
+  position: relative;
   padding: 0 !important;
   margin: 0 !important;
+}
+
+.btn {
+  border-radius: 30px;
+  width: 45px;
+}
+
+.form-group {
+  align: center;
+}
+
+textarea {
+  font-size: 25px;
+  margin-left: 125px;
+  margin-right: 125px;
+  resize: none;
+  width: 200px;
 }

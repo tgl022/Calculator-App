@@ -2,6 +2,8 @@ import db from './../models';
 
 const logController = {};
 
+// Res = [] of last 10 log enrties
+// MongoDB _id is a timestamp
 logController.get = (req, res) => {
   db.Log.find({}).sort({_id: -1}).limit(10).then((logs) => {
     res.status(200).json({

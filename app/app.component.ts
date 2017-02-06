@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Log from './../server/models/Log.js';
-import { Calculator } from './calculator';
+import { CalculatorService } from './services/calculator.service';
 import { LogService } from './services/log.service';
 
 @Component({
@@ -10,35 +10,52 @@ import { LogService } from './services/log.service';
 })
 export class AppComponent implements OnInit {
 
+  logs: Log[];
+
   constructor(
-    private calculator: Calculator,
+    private calculatorService: CalculatorService,
     private logService: LogService
   ) { }
 
+  ngOnInit() {
+    this.logService.getLogs().subscribe(data => {
+      this.logs = data;
+    });
+    console.log('Logs loaded');
+  }
+
   evalString = '';
 
-  calculate() {
-    this.evalString += this.calculator.solution;
-    console.log(this.evalString);
+  updateLogs() {
+    //get last 10 logs
+    this.logService.getLogs().subscribe(data => {
+      this.logs = data;
+    });
+  }
+
+  clearScreen() {
+    this.evalString = '';
   }
 
   addToString(char) {
-    this.evalString += char;
-    if(char === '=')
-      this.calculate();
+    if(char == '=') {
+      var solution = this.calculatorService.eval(this.evalString);
+      this.pushLog(this.evalString + '= ' + solution);
+      this.evalString = solution;
+    } else {
+      this.evalString += char;
+    }
   }
 
-  pushLog() {
+  pushLog(logMessage: string) {
     //push a new log
-  }
-
-  getLog() {
-    //get last 10 logs
-    // this.logService.getLogs().subscribe(data => {
-    //   this.word = data.word;
-  }
-
-  ngOnInit() {
-    this.getLog();
+    var log = {
+      message: logMessage
+    };
+    this.logService.addLog(log)
+      .subscribe(log => {
+        console.log("Pushed new log: " + logMessage);
+      });
+    this.updateLogs();
   }
 }

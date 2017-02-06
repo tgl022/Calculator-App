@@ -7,10 +7,8 @@ const logSchema = new Schema({
   message: {
     type: String,
     required: true
-  }  //add more elements
+  }
 });
-
-//pre
 
 const Log = mongoose.model('Log', logSchema);
 export default Log;

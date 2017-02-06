@@ -15,20 +15,35 @@ require("rxjs/add/operator/map");
 var LogService = (function () {
     function LogService(http) {
         this.http = http;
-        this.logsUrl = '/logs';
+        this.logsUrl = '/log';
     }
     LogService.prototype.getLogs = function () {
+        console.log('Get log called in service');
         return this.http.get(this.logsUrl)
-            .map(function (res) { return res.json(); })
-            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
+            .map(function (res) { return res.json().data; })
+            .catch(this.handleError);
     };
     LogService.prototype.addLog = function (body) {
-        var bodyString = JSON.stringify(body);
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        var options = new http_1.RequestOptions({ headers: headers });
-        return this.http.post(this.logsUrl, body, options)
+        // let bodyString = JSON.stringify(body);
+        // let headers      = new Headers({ 'Content-Type': 'application/json' });
+        return this.http.post(this.logsUrl, body)
             .map(function (res) { return res.json(); })
-            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
+            .catch(this.handleError);
+    };
+    /**
+     * Handle any errors from the API
+     */
+    LogService.prototype.handleError = function (err) {
+        var errMessage;
+        if (err instanceof http_1.Response) {
+            var body = err.json() || '';
+            var error = body.error || JSON.stringify(body);
+            errMessage = err.status + " - " + err.statusText + " || ''} " + error;
+        }
+        else {
+            errMessage = err.message ? err.message : err.toString();
+        }
+        return Rx_1.Observable.throw(errMessage);
     };
     return LogService;
 }());

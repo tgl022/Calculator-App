@@ -1,6 +1,8 @@
 "use strict";
 var models_1 = require("./../models");
 var logController = {};
+// Res = [] of last 10 log enrties
+// MongoDB _id is a timestamp
 logController.get = function (req, res) {
     models_1.default.Log.find({}).sort({ _id: -1 }).limit(10).then(function (logs) {
         res.status(200).json({
