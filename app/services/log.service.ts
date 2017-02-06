@@ -11,11 +11,10 @@ export class LogService {
 
   constructor(private http: Http) { }
 
-
   getLogs() :  Observable<Log[]> {
      return this.http.get(this.logsUrl)
-         .map((res:Response) => res.json())
-         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+         .map(res => res.json().data)
+         .catch(this.handleError);
   }
 
   addLog(body: Object) :  Observable<Log[]>{
@@ -25,7 +24,26 @@ export class LogService {
 
     return this.http.post(this.logsUrl, body, options)
           .map((res:Response) => res.json())
-          .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+          .catch(this.handleError);
   }
+
+
+/**
+ * Handle any errors from the API
+ */
+  private handleError(err) {
+    let errMessage: string;
+
+    if (err instanceof Response) {
+      let body   = err.json() || '';
+      let error  = body.error || JSON.stringify(body);
+      errMessage = `${err.status} - ${err.statusText} || ''} ${error}`;
+    } else {
+      errMessage = err.message ? err.message : err.toString();
+    }
+
+    return Observable.throw(errMessage);
+  }
+
 
 }

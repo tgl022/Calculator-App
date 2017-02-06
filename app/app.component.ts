@@ -10,10 +10,18 @@ import { LogService } from './services/log.service';
 })
 export class AppComponent implements OnInit {
 
+  logs: Log[];
+
   constructor(
     private calculator: Calculator,
     private logService: LogService
   ) { }
+
+  ngOnInit() {
+    this.logService.getLogs().subscribe(data => {
+      this.logs = data;
+    });
+  }
 
   evalString = '';
 
@@ -34,11 +42,8 @@ export class AppComponent implements OnInit {
 
   getLog() {
     //get last 10 logs
-    // this.logService.getLogs().subscribe(data => {
-    //   this.word = data.word;
-  }
-
-  ngOnInit() {
-    this.getLog();
+    this.logService.getLogs().subscribe(data => {
+      this.logs = data;
+    });
   }
 }

@@ -17,6 +17,12 @@ var AppComponent = (function () {
         this.logService = logService;
         this.evalString = '';
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.logService.getLogs().subscribe(function (data) {
+            _this.logs = data;
+        });
+    };
     AppComponent.prototype.calculate = function () {
         this.evalString += this.calculator.solution;
         console.log(this.evalString);
@@ -30,12 +36,11 @@ var AppComponent = (function () {
         //push a new log
     };
     AppComponent.prototype.getLog = function () {
+        var _this = this;
         //get last 10 logs
-        // this.logService.getLogs().subscribe(data => {
-        //   this.word = data.word;
-    };
-    AppComponent.prototype.ngOnInit = function () {
-        this.getLog();
+        this.logService.getLogs().subscribe(function (data) {
+            _this.logs = data;
+        });
     };
     return AppComponent;
 }());

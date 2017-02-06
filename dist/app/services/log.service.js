@@ -19,8 +19,8 @@ var LogService = (function () {
     }
     LogService.prototype.getLogs = function () {
         return this.http.get(this.logsUrl)
-            .map(function (res) { return res.json(); })
-            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
+            .map(function (res) { return res.json().data; })
+            .catch(this.handleError);
     };
     LogService.prototype.addLog = function (body) {
         var bodyString = JSON.stringify(body);
@@ -28,7 +28,22 @@ var LogService = (function () {
         var options = new http_1.RequestOptions({ headers: headers });
         return this.http.post(this.logsUrl, body, options)
             .map(function (res) { return res.json(); })
-            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
+            .catch(this.handleError);
+    };
+    /**
+     * Handle any errors from the API
+     */
+    LogService.prototype.handleError = function (err) {
+        var errMessage;
+        if (err instanceof http_1.Response) {
+            var body = err.json() || '';
+            var error = body.error || JSON.stringify(body);
+            errMessage = err.status + " - " + err.statusText + " || ''} " + error;
+        }
+        else {
+            errMessage = err.message ? err.message : err.toString();
+        }
+        return Rx_1.Observable.throw(errMessage);
     };
     return LogService;
 }());
